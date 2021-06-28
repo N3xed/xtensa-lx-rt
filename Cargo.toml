@@ -18,7 +18,11 @@ edition = "2018"
 r0 = "1.0.0"
 bare-metal = { version = "0.2.0", features = ["const-fn"] }
 xtensa-lx-rt-proc-macros = { path = "procmacros", version = "=0.1.0" }
+freertos-esp32-sys = { git = "https://github.com/N3xed/freertos-esp32-sys.git", optional = true }
 
 [features]
+default = ["lx6"]
+
+esp32-freertos = ["freertos-esp32-sys"]
 lx6 = []
 lx106 = []

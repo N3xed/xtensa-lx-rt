@@ -22,10 +22,12 @@
 //! can always be expanded to `mov a0,label; call a0`. Care must be taken since A0 is overwritten.
 //!
 
-#[cfg(feature = "lx6")]
+#[cfg(all(feature = "lx6", not(feature = "esp32-freertos")))]
 mod lx6;
-#[cfg(feature = "lx6")]
+#[cfg(all(feature = "lx6", not(feature = "esp32-freertos")))]
 mod assembly_lx6;
+#[cfg(all(feature = "lx6", feature = "esp32-freertos"))]
+mod esp32_freertos;
 #[cfg(feature = "lx106")]
 mod lx106;
 #[cfg(feature = "lx106")]
@@ -124,7 +126,9 @@ pub enum ExceptionCause {
     None = 255,
 }
 
-#[cfg(feature = "lx6")]
+#[cfg(all(feature = "lx6", not(feature = "esp32-freertos")))]
 pub use lx6::Context;
+#[cfg(all(feature = "lx6", feature = "esp32-freertos"))]
+pub use esp32_freertos::Context;
 #[cfg(feature = "lx106")]
 pub use lx106::Context;
